@@ -31,5 +31,64 @@
  * @returns {number} Total price or -1 for invalid input
  */
 export function calculateCoffeePrice(size, type, extras = {}) {
-  // Your code here
+  // Use AND (&&) logic to ensure the size/type is none of the valid options
+  if (size !== 'small' && size !== 'medium' && size !== 'large') {
+    return -1; // Changed to number -1 as per return type documentation
+  }
+
+  if (
+    type !== 'regular' &&
+    type !== 'latte' &&
+    type !== 'cappuccino' &&
+    type !== 'mocha'
+  ) {
+    return -1;
+  }
+
+  // Changed const to let so the price can be updated
+  let price = 0;
+
+  // Switched case targets to match the incoming string variables
+  switch (size) {
+    case 'small':
+      price += 3.0;
+      break;
+    case 'medium':
+      price += 4.0;
+      break;
+    case 'large':
+      price += 5.0;
+      break;
+    default:
+      break;
+  }
+
+  switch (type) {
+    case 'regular':
+      price += 0.0;
+      break;
+    case 'latte':
+      price += 1.0;
+      break;
+    case 'cappuccino':
+      price += 1.5;
+      break;
+    case 'mocha':
+      price += 2.0;
+      break;
+    default:
+      break;
+  }
+
+  // Completed the extras checks
+  if (extras.whippedCream) {
+    price += 0.5;
+  }
+
+  if (extras.extraShot) {
+    price += 0.75;
+  }
+
+  // Rounded to 2 decimal places and converted back to a number
+  return Number(price.toFixed(2));
 }
