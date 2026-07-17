@@ -34,4 +34,94 @@
  */
 export function calculateParkingFee(hours, vehicleType) {
   // Your code here
+
+  // hours code
+  const totalHours = Math.ceil(hours);
+  if (totalHours <= 0) {
+    return -1;
+  }
+  // checking is this a vehicle or not
+  const isItVehicle = isVehicle(vehicleType);
+
+  if (isItVehicle === false) {
+    return -1;
+  }
+
+  if (vehicleType === 'bus') {
+    let fees = calculateBusFees(totalHours);
+    if (fees > 60) {
+      fees = 60;
+    }
+    return fees;
+  } else if (vehicleType === 'motorcycle') {
+    let fees = calculateMotorCycleFees(totalHours);
+    if (fees > 18) {
+      fees = 18;
+    }
+    return fees;
+  } else {
+    let fees = calculateCarFees(totalHours);
+    if (fees > 30) {
+      fees = 30;
+    }
+    return fees;
+  }
+}
+function isVehicle(vehicleType) {
+  if (
+    vehicleType === 'bus' ||
+    vehicleType === 'motorcycle' ||
+    vehicleType === 'car'
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function calculateCarFees(hour) {
+  let totalhour = hour;
+  let totalFees = 0;
+
+  if (totalhour === 1) {
+    return 5;
+  }
+  if (totalhour > 1) {
+    totalhour = totalhour - 1;
+    for (let i = 0; i < totalhour; i++) {
+      totalFees += 3;
+    }
+    return totalFees + 5;
+  }
+}
+
+function calculateBusFees(hour) {
+  let totalhour = hour;
+  let totalFees = 0;
+
+  if (totalhour === 1) {
+    return 10;
+  }
+  if (totalhour > 1) {
+    totalhour = totalhour - 1;
+    for (let i = 0; i < totalhour; i++) {
+      totalFees += 7;
+    }
+    return totalFees + 10;
+  }
+}
+
+function calculateMotorCycleFees(hour) {
+  let totalhour = hour;
+  let totalFees = 0;
+
+  if (totalhour === 1) {
+    return 3;
+  }
+  if (totalhour > 1) {
+    totalhour = totalhour - 1;
+    for (let i = 0; i < totalhour; i++) {
+      totalFees += 2;
+    }
+    return totalFees + 3;
+  }
 }
